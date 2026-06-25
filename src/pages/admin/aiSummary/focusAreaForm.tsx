@@ -63,7 +63,7 @@ const FocusAreaForm = () => {
             <h4 className="font-bold p-2">AI Insights</h4>
             <div className="h-1/2 w-full flex justify-center items-center">
               <p className="flex items-center justify-center text-gray-700 font-bold">
-                No records found
+                No records
               </p>
             </div>
           </div>
