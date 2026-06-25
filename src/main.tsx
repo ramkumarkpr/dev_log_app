@@ -7,28 +7,33 @@ import DailyLog from "./pages/admin/dailyLog/DailyLog";
 import Sample from "./sample";
 import SummaryDashBoard from "./pages/admin/aiSummary";
 
-const router = createBrowserRouter([
+const router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <Login />,
+    },
+    {
+      path: "/dashboard",
+      element: <Dashboard />,
+    },
+    {
+      path: "/daily-log",
+      element: <DailyLog />,
+    },
+    {
+      path: "/sample",
+      element: <Sample />,
+    },
+    {
+      path: "/ai-summary",
+      element: <SummaryDashBoard />,
+    },
+  ],
   {
-    path: "/",
-    element: <Login />,
+    basename: "/dev_log_app",
   },
-  {
-    path: "/dashboard",
-    element: <Dashboard />,
-  },
-  {
-    path: "/daily-log",
-    element: <DailyLog />,
-  },
-  {
-    path: "/sample",
-    element: <Sample />,
-  },
-  {
-    path: "/ai-summary",
-    element: <SummaryDashBoard />,
-  },
-]);
+);
 
 createRoot(document.getElementById("root")!).render(
   <>
