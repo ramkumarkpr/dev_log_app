@@ -1,10 +1,47 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import Sidebar from "../../../components/Sidebar";
+import TaskIcon from "../../../assets/icons/taskIcon";
+import NoteIcon from "../../../assets/icons/noteIcon";
+import ScreenShotIcon from "../../../assets/icons/screenShotIcon";
+import GroupStarIcon from "../../../assets/icons/groupStarIcon";
+import FocusAreaForm from "./focusAreaForm";
+
+interface ReportStatsDTO {
+  id: number;
+  title: string;
+  value: string;
+  description: string;
+  icon?: ReactNode;
+}
 
 const SummaryLogs = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const REPORT_NOTES = ["Today", "This Week", "This Month"];
+
+  const reportStats: ReportStatsDTO[] = [
+    {
+      id: 1,
+      title: "Total Tasks",
+      value: "24",
+      description: "+20% vs last week",
+      icon: <TaskIcon />,
+    },
+    {
+      id: 2,
+      title: "Learning Hours",
+      value: "15.7",
+      description: "+20% vs last week",
+      icon: <NoteIcon />,
+    },
+    {
+      id: 3,
+      title: "Focus Score",
+      value: "8.7 / 10",
+      description: "Excellent",
+      icon: <ScreenShotIcon />,
+    },
+  ];
 
   return (
     <>
@@ -49,7 +86,42 @@ const SummaryLogs = () => {
           </div>
         </section>
 
-        <section className="mx-auto max-w-2xl px-4 sm:px-6 sm:mt-5 lg:max-w-7xl lg:px-8 py-3"></section>
+        <section className="mx-auto max-w-2xl px-4 sm:px-6 sm:mt-5 lg:max-w-7xl lg:px-8 py-3">
+          <div className="border-2 border-gray-300 rounded-lg p-5 shadow-lg">
+            <div className="flex items-center gap-3 mb-3">
+              <span>
+                <GroupStarIcon />
+              </span>
+              <h4 className="text-2xl font-bold">Weekly Summary</h4>
+            </div>
+
+            <div className="flex flex-wrap justify-between">
+              {reportStats.map((stats, index) => (
+                <div
+                  className="flex justify-between mt-4 bg-gray-100 p-2 rounded-lg shadow-lg"
+                  key={index}
+                >
+                  <div className="flex items-start gap-2 w-2xs py-3">
+                    <div className="border border-gray-300 p-2 rounded-full bg-gray-200">
+                      {stats.icon}
+                    </div>
+                    <div className="flex flex-col gap-3">
+                      <span className="text-md font-bold">{stats.title}</span>
+                      <span className="text-2xl font-bold">{stats.value}</span>
+                      <span className="text-xs text-green-600 font-bold">
+                        {stats.description}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="mx-auto max-w-2xl px-4 sm:px-6 sm:mt-5 lg:max-w-7xl lg:px-8 py-3">
+          <FocusAreaForm />
+        </section>
       </main>
     </>
   );
