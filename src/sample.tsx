@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import TaskIcon from "./assets/icons/taskIcon";
 import NoteIcon from "./assets/icons/noteIcon";
 import LinkIcon from "./assets/icons/linkIcon";
-import ScreenShotIcon from "./assets/icons/screenShotIcon";
 import DeleteIcon from "./assets/icons/deleteIcon";
 import EditIcon from "./assets/icons/editIcon";
 
@@ -136,7 +135,7 @@ const AddLogModal = ({ isOpen, onClose, onSave }: AddLogModalProps) => {
               />
             </div>
 
-            <div className="flex flex-col gap-1 min-w-[130px]">
+            <div className="flex flex-col gap-1 min-w-32.5">
               <label className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
                 Category
               </label>

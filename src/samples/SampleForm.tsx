@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 // type FormData = {
 //   name: string;
 //   email: string;
@@ -188,8 +186,6 @@ import { useState } from "react";
 // }
 
 const Sample = () => {
-  const [showForm, setShowForm] = useState(false);
-
   return (
     <>
       <div>
