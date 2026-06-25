@@ -25,21 +25,7 @@ const SummaryLogs = () => {
           </h1>
         </header>
 
-        <section className="flex flex-col gap-4 border-none bg-white p-4 shadow-md md:flex-row md:items-center md:justify-end md:p-6">
-          <div className="md:flex w-1/2 items-center gap-2 sm:gap-4">
-            <input
-              type="text"
-              placeholder="Search"
-              className="w-full rounded border border-gray-400 px-3 py-2 focus:ring-2 focus:ring-[#D4AF37] focus:outline-none"
-            />
-
-            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#D4AF37] font-bold text-white">
-              R
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto max-w-2xl px-4 sm:px-6 sm:mt-5 lg:max-w-7xl lg:px-8 py-3">
+        <section className="flex flex-col gap-4 border-none bg-white p-4 shadow-md md:flex-row md:items-center justify-between md:p-6">
           <div className="flex justify-between items-center gap-2 sm:gap-4">
             <div>
               <h1 className="text-xl font-bold md:text-2xl">AI Summary</h1>
@@ -47,15 +33,23 @@ const SummaryLogs = () => {
                 AI - Powered Insights from your logs
               </span>
             </div>
+          </div>
+
+          <div className="flex gap-5">
             <div>
-              <select className=" rounded border border-gray-400 px-3 py-2 focus:ring-2 focus:ring-[#D4AF37] focus:outline-none appearance-none cursor-pointer">
+              <select className=" rounded border border-gray-400 px-3 py-2 focus:ring-2 focus:ring-[#D4AF37] focus:outline-none cursor-pointer">
                 {REPORT_NOTES.map((notes) => (
                   <option key={notes}>{notes}</option>
                 ))}
               </select>
             </div>
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#D4AF37] font-bold text-white">
+              R
+            </div>
           </div>
         </section>
+
+        <section className="mx-auto max-w-2xl px-4 sm:px-6 sm:mt-5 lg:max-w-7xl lg:px-8 py-3"></section>
       </main>
     </>
   );

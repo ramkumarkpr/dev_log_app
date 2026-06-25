@@ -1,0 +1,160 @@
+========================Theory List================================
+
+1.How HTTP authentication works?
+    HTTP is stateless — every request is independent. Auth means proving "who am I?" on every request. Three ways: session ID, token in header, or cookie. You need to understand WHY we need auth before writing any code.
+
+2.What is JWT (JSON Web Token)?
+    A JWT is a string with 3 parts: header.payload.signature. The payload holds user data (id, email, role). The signature is a secret hash — only your server can create it. Anyone can read the payload, nobody can fake the signature.
+
+3.What is a cookie vs localStorage?
+    Both store data in browser. But http Only cookies can't be read by JavaScript at all — only the browser sends them automatically. localStorage is readable by any JS on the page, so it's vulnerable to XSS attacks. This is why production apps use httpOnly cookies for auth tokens.
+
+========================Theory List================================
+
+
+======================== NestJS backend ================================
+
+1.Password hashing with bcrypt
+    Never store plain passwords. bcrypt.hash(password, 10) turns "mypassword" into a random 60-char string. On login, bcrypt.compare() checks it. Even if your DB leaks, passwords are safe.
+
+2.Signing a JWT in NestJS
+    Install @nestjs/jwt. Use jwtService.sign({ sub: user.id, email }) to create a token. Store your secret in .env as JWT_SECRET. Set an expiry like expiresIn: '7d'
+
+3.Setting the httpOnly cookie
+    In your login controller: res.cookie('token', jwt, {'{'} httpOnly: true, secure: true, sameSite: 'strict' {'}'} ). The browser stores it and sends it automatically on every future request to your domain.
+
+4.JWT Guard — protecting routes
+    A Guard in NestJS runs before a controller method. Your JwtAuthGuard reads the cookie from req.cookies.token, verifies it, and attaches the user to the request. Add @UseGuards(JwtAuthGuard) to any route you want to protect.
+
+5.CORS + cookie configuration
+    In main.ts: enable app.enableCors({'{'} origin: 'http://localhost:5173', credentials: true {'}'} ) and app.use(cookieParser()). Without credentials:true, the browser won't send cookies cross-origin.
+
+6.Logout — clearing the cookie
+    res.clearCookie('token') in your logout controller. That's it. The browser deletes the cookie and the JWT is gone from the client. The token itself is still valid until expiry — this is why short expiry times matter.
+
+======================== NestJS backend ================================
+
+========================  React frontend ================================
+
+1.Axios with withCredentials
+    In your utils/axiosInstance.ts: set withCredentials: true. This tells Axios to always send the httpOnly cookie with every request. Without this, cookies are ignored by the browser on API calls.
+
+2.authSlice in Redux
+    Store {'{'} user: null, isAuthenticated: false {'}'} in Redux. After login API succeeds, dispatch setUser(responseData). The cookie is handled by the browser — Redux only holds the user profile for the UI.
+
+3.Protected routes in React Router
+    Wrap private pages in a PrivateRoute component that checks Redux isAuthenticated. If false, redirect to /login. On page refresh, call a /auth/me endpoint on app load to re-hydrate user from the cookie.
+
+========================  React frontend ================================
+
+======================== security awareness ================================
+
+1.XSS vs CSRF — what are they
+    XSS = attacker injects JS into your page to steal tokens from localStorage. httpOnly cookies block this completely — JS can't read them. CSRF = attacker tricks your browser into sending cookies to your API from another site. The sameSite: 'strict' cookie flag prevents this.
+
+2.Token expiry and refresh tokens
+    Access tokens expire fast (15min–1h). A refresh token lasts longer (7–30 days) and is stored in a separate httpOnly cookie. When the access token expires, your frontend silently calls /auth/refresh to get a new one. For your DevLog project, just use a 7-day access token to keep it simple
+    
+======================== security awareness ================================
+
+======================== Hooks ================================
+1.React Timer Hook - npm install react-timer-hook
+======================== Hooks ================================
+
+======================== Live Date =============================
+
+new Date().toLocalString("en-us",{
+    weekday:"",
+    month:"",
+    day:"",
+})
+
+======================== Live Date =============================
+
+
+
+1) [ 01/06-2026 to 04/06-2026 ]- FIN-522 [Incentives][Finance][Orders Tab][UI] - Orders Grid with Mock Data
+2) [ 08/06-2026 to 12/06-2026 ]- FIN-525 [Incentives][Finance][Orders Tab][UI] – View Sales Hierarchy Incentive Details Popup
+3) [ 10/06-2026 to 12/06-2026 ]- FIN-527 [Incentives][Finance][Hierarchy Tab][UI + Int] – Month-wise Hierarchy View with Filters
+4) [ 15/06-2026 to 17/06-2026 ]- FIN-552 [FinSuite][Hierarchy Tab][UI-API Integration] – Hierarchy Filter Integration
+5) [ 17/06-2026 to 19/06-2026 ]- FIN-555 [FinSuite][UI] – UI Alignment for New and Existing Tabs
+6) [ 19/06-2026 to 19/06-2026 ]- FIN-559 [Bug Ticket] – Calendar default month is not proper
+7) [ 22/06-2026 to 24/06-2026 ]- FIN-543 [Incentives][Finance][UI] - Change Hierarchy Option in Orders Tab
+
+
+find , map , filter are advanced loops which we will mostly use them on arrays and array of object Just assume we are having an data with array of objects like something users with few datas
+
+
+============================ Ecplanation Advanced Loops ============================
+
+users =[ 
+    {id:1, empName:"Ram", empId:10843 , active:true},
+    {id:2, empName:"Ajith", empId:10844 , active:true},
+    {id:3, empName:"Sandheep", empId:10845 , active:true},
+]
+
+1.Scenario_1 : As I am manager i need a employee who is having a employeeId 10843
+2.Scenario_2 : As I am manager i need a employee list working in nibav and also add gender field
+3.Scenario_3 : As I am manager i need a employee list who are active
+
+1.find : we use find to get the first element that matches a condition
+
+   As per scenario_1 we will use Find to get a particular with their empId
+
+   syntax : array.find((element/item)=> return condition we need)
+
+   To fullfill the Scenario i use Find like this
+
+   const particularEmp = users.find(
+        (emp)=>emp.empId===10843
+    )
+
+2.map : use can add a new property with the existing array , list them . map will creates a new array
+   As per scenario_2 we will use Map to get All the fields.
+
+   syntax : array.map((element/item)=>(
+        return new array
+   ))
+
+   To fullfill the Scenario_2 i use map like this
+
+   const updatedEmpList = users.map((user)=>(
+    {
+        ...user, gender:"male"
+    }
+   ))
+
+   making it as a List
+
+   <div>
+        {           
+                updatedEmpList.map((emp)=>(
+                     <ul key={emp.id}>
+                        <li> {emp.empName} </li>
+                        <li> {emp.empId} </li>
+                        <li> {emp.gender} </li>
+                     </ul>
+                ))                
+        }
+        
+   </div>
+
+3.filter : we use filter to return all elements that match a condition. It will also returns a new array.
+
+   As per scenario_3 we will use filter to get All active emplist
+
+   syntax: array.filter((element) => {
+                return condition;
+            });
+
+    To fullfill the Scenario_3 i use map like this
+
+    const activeUsers = users.filter((user)=>{
+        user.active===true
+    })
+
+============================ Ecplanation Advanced Loops ============================
+
+
+
+
